@@ -141,6 +141,8 @@ cp admin/src/environments/environment.example.ts admin/src/environments/environm
 ```
 
 ### 4. Start Development Environment
+
+#### Option A: Start All Services Together
 ```bash
 # Start Docker services (PostgreSQL, Redis, MailHog)
 docker-compose up -d
@@ -149,12 +151,63 @@ docker-compose up -d
 npm run dev
 ```
 
+#### Option B: Start Services Individually (Recommended for Development)
+```bash
+# Start Docker services first
+docker-compose up -d
+
+# Terminal 1: Start Backend
+cd backend
+npm run start:dev
+
+# Terminal 2: Start Frontend
+cd frontend
+npm start
+
+# Terminal 3: Start Admin Dashboard
+cd admin
+npm start
+```
+
 ### 5. Access Applications
 - **Frontend**: http://localhost:4200 (Landing page)
 - **Admin Dashboard**: http://localhost:4201
 - **Backend API**: http://localhost:3000
 - **API Documentation**: http://localhost:3000/api/docs
 - **MailHog**: http://localhost:8025
+
+### 6. Development Tips
+
+#### Individual Service Management
+```bash
+# Backend only
+npm run dev:backend
+
+# Frontend only
+npm run dev:frontend
+
+# Admin only
+npm run dev:admin
+
+# Docker services only
+npm run docker:up
+npm run docker:down
+```
+
+#### Troubleshooting Individual Services
+```bash
+# Check if backend is responding
+curl http://localhost:3000/api/v1/auth/health
+
+# Check if frontend is running
+curl http://localhost:4200
+
+# Check if admin is running
+curl http://localhost:4201
+
+# View Docker logs
+docker-compose logs -f
+```
 
 ## ✅ Current Status
 
@@ -416,6 +469,31 @@ The backend provides comprehensive API endpoints for multi-tenant management:
 3. **Node modules**: Run `npm install` in each directory if needed
 4. **Docker issues**: Restart Docker and run `docker-compose down && docker-compose up -d`
 5. **Tailwind CSS issues**: Ensure all components use Tailwind classes only
+6. **Service startup issues**: Use individual service startup for debugging
+
+### Debugging Individual Services
+
+If `npm run dev` fails, start services individually to identify the problem:
+
+```bash
+# 1. Start Docker services
+docker-compose up -d
+
+# 2. Test Backend
+cd backend
+npm run start:dev
+# Check: http://localhost:3000/api/v1/auth/health
+
+# 3. Test Frontend (in new terminal)
+cd frontend
+npm start
+# Check: http://localhost:4200
+
+# 4. Test Admin (in new terminal)
+cd admin
+npm start
+# Check: http://localhost:4201
+```
 
 ### Reset Everything
 
