@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { StatsCardComponent } from './components/stats-card.component';
 import { DashboardChartComponent } from './components/dashboard-chart.component';
 
@@ -82,9 +83,54 @@ import { DashboardChartComponent } from './components/dashboard-chart.component'
                 </svg>
               </button>
               
-              <div class="flex items-center space-x-3">
-                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User avatar">
-                <span class="text-sm font-medium text-gray-700">Admin User</span>
+              <!-- User Menu -->
+              <div class="relative user-menu-container">
+                <button 
+                  (click)="toggleUserMenu()"
+                  class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-2"
+                >
+                  <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User avatar">
+                  <span class="text-sm font-medium">Admin User</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div 
+                  *ngIf="showUserMenu"
+                  class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
+                >
+                  <div class="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+                    <div class="font-medium">admin&#64;saasplatform.com</div>
+                    <div class="text-gray-500">Super Admin</div>
+                  </div>
+                  
+                  <a 
+                    href="#" 
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    (click)="navigateToProfile($event)"
+                  >
+                    Profile
+                  </a>
+                  
+                  <a 
+                    href="#" 
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    (click)="navigateToSettings($event)"
+                  >
+                    Settings
+                  </a>
+                  
+                  <div class="border-t border-gray-100"></div>
+                  
+                  <button 
+                    (click)="logout()"
+                    class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                  >
+                    Sign out
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -184,8 +230,47 @@ import { DashboardChartComponent } from './components/dashboard-chart.component'
 })
 export class AppComponent implements OnInit {
   title = 'saas-admin';
+  showUserMenu = false;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     // Initialize any dashboard data
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-menu-container')) {
+      this.showUserMenu = false;
+    }
+  }
+
+  toggleUserMenu(): void {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  navigateToProfile(event: Event): void {
+    event.preventDefault();
+    this.showUserMenu = false;
+    // Navigate to profile page
+  }
+
+  navigateToSettings(event: Event): void {
+    event.preventDefault();
+    this.showUserMenu = false;
+    // Navigate to settings page
+  }
+
+  logout(): void {
+    // Clear any stored authentication data
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('current_user');
+    
+    // Close the menu
+    this.showUserMenu = false;
+    
+    // Navigate to login page or home page
+    this.router.navigate(['/login']);
   }
 } 
