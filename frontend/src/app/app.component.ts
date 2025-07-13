@@ -62,14 +62,14 @@ export class AppComponent implements OnInit {
     // Listen to route changes to show/hide layout components
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
+      .subscribe((event: any) => {
         this.updateLayoutVisibility(event.url);
       });
   }
 
   private updateLayoutVisibility(url: string) {
-    // Hide header and sidebar for auth pages
-    if (url.includes('/auth')) {
+    // Hide header and sidebar for auth pages and landing page
+    if (url.includes('/auth') || url === '/' || url === '/landing') {
       this.showHeader = false;
       this.showSidebar = false;
       this.showFooter = false;

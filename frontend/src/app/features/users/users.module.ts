@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+
+import { UsersComponent } from './users.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    UsersComponent
+  ],
   imports: [
     CommonModule,
+    ButtonModule,
+    CardModule,
     RouterModule.forChild([
-      { path: '', component: null }, // TODO: Add users list component
+      { path: '', component: UsersComponent },
     ])
   ]
 })
