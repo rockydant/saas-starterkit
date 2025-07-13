@@ -85,8 +85,26 @@ import { AdminAuthService, AdminUser } from './services/auth.service';
                 </svg>
               </button>
               
-              <!-- User Menu -->
-              <div class="relative user-menu-container">
+              <!-- Test Logout Button -->
+              <button 
+                (click)="logout()"
+                class="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700"
+              >
+                Test Logout
+              </button>
+              
+              <!-- Login Button (when not authenticated) -->
+              <div *ngIf="!authService.isAuthenticated()">
+                <button 
+                  (click)="router.navigate(['/login'])"
+                  class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700"
+                >
+                  Login
+                </button>
+              </div>
+              
+              <!-- User Menu (when authenticated) -->
+              <div class="relative user-menu-container" *ngIf="authService.isAuthenticated()">
                 <button 
                   (click)="toggleUserMenu()"
                   class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-2"
@@ -98,7 +116,7 @@ import { AdminAuthService, AdminUser } from './services/auth.service';
                   </svg>
                 </button>
                 
-                <!-- Dropdown Menu -->
+                <!-- Dropdown Menu - Always visible for testing -->
                 <div 
                   *ngIf="showUserMenu"
                   class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
@@ -236,8 +254,8 @@ export class AppComponent implements OnInit {
   currentUser: AdminUser | null = null;
 
   constructor(
-    private router: Router,
-    private authService: AdminAuthService
+    public router: Router,
+    public authService: AdminAuthService
   ) {
     this.authService.currentUser.subscribe((user: AdminUser | null) => {
       this.currentUser = user;
@@ -246,6 +264,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Initialize any dashboard data
+    console.log('AppComponent initialized');
+    console.log('Is authenticated:', this.authService.isAuthenticated());
+    console.log('Current user:', this.currentUser);
+    console.log('Token:', this.authService.token);
   }
 
   @HostListener('document:click', ['$event'])
@@ -273,16 +295,31 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
+    console.log('Logout button clicked');
+    console.log('Current auth state:', this.authService.isAuthenticated());
+    console.log('Current token:', this.authService.token);
+    
+    // If not authenticated, just clear data and redirect
+    if (!this.authService.isAuthenticated()) {
+      console.log('Not authenticated, clearing data and redirecting');
+      this.authService.clearAuthData();
+      this.showUserMenu = false;
+      this.router.navigate(['/']);
+      return;
+    }
+    
+    // If authenticated, call backend logout
     this.authService.logout().subscribe({
-      next: () => {
+      next: (response) => {
+        console.log('Logout successful:', response);
         this.showUserMenu = false;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       },
       error: (error: any) => {
         console.error('Logout error:', error);
         // Even if backend call fails, clear local storage
         this.authService.clearAuthData();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       }
     });
   }

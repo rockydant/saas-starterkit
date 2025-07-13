@@ -51,16 +51,30 @@ export class AdminAuthService {
   }
 
   logout(): Observable<any> {
+    console.log('AdminAuthService.logout() called');
     const token = this.token;
-    const headers: { [key: string]: string } = {};
+    console.log('Token:', token);
     
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+    // If no token, just clear data and return success
+    if (!token) {
+      console.log('No token found, clearing data only');
+      this.clearAuthData();
+      return new Observable(observer => {
+        observer.next({ message: 'Logged out successfully (no token)' });
+        observer.complete();
+      });
     }
+    
+    const headers: { [key: string]: string } = {};
+    headers['Authorization'] = `Bearer ${token}`;
+    
+    console.log('Making logout request to:', `${this.apiUrl}/auth/logout`);
+    console.log('Headers:', headers);
     
     // Call backend logout endpoint
     return this.http.post(`${this.apiUrl}/auth/logout`, {}, { headers }).pipe(
       map(() => {
+        console.log('Logout request successful');
         // Remove user from local storage and set current user to null
         this.clearAuthData();
         return { message: 'Logged out successfully' };
