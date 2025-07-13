@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-dashboard',
   template: `
     <div class="p-6">
-      <div class="card">
-        <div class="card-header">
+      <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
           <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
         </div>
-        <div class="card-body">
+        <div class="px-6 py-4">
           <p class="text-gray-600">
             Dashboard component will be implemented here with charts and analytics.
           </p>

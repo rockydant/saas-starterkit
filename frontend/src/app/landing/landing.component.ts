@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-landing',
   template: `
-    <div class="landing-page">
+    <div class="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800">
       <!-- Hero Section -->
-      <section class="hero-section">
-        <div class="hero-content">
-          <h1 class="hero-title">
+      <section class="flex items-center justify-between px-8 py-24 max-w-7xl mx-auto text-white">
+        <div class="flex-1 max-w-2xl">
+          <h1 class="text-5xl font-bold mb-6 leading-tight">
             Transform Your Business with
-            <span class="text-primary">SaaS Platform</span>
+            <span class="text-yellow-300">SaaS Platform</span>
           </h1>
-          <p class="hero-subtitle">
+          <p class="text-xl mb-8 opacity-90 leading-relaxed">
             The complete multi-tenant SaaS solution for modern businesses. 
             Scale effortlessly, manage efficiently, and grow sustainably.
           </p>
-          <div class="hero-buttons">
+          <div class="flex gap-4 flex-wrap">
             <p-button 
               label="Get Started Free" 
               icon="pi pi-rocket" 
@@ -31,51 +31,175 @@ import { Router } from '@angular/router';
             </p-button>
           </div>
         </div>
-        <div class="hero-image">
-          <img src="assets/images/hero-dashboard.png" alt="SaaS Dashboard" />
+        <div class="flex-1 text-center">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
+            <div class="w-96 h-64 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center">
+              <i class="pi pi-chart-line text-6xl text-white"></i>
+            </div>
+            <p class="text-white/80 mt-4 text-sm">Dashboard Preview</p>
+          </div>
         </div>
       </section>
 
       <!-- Features Section -->
-      <section class="features-section">
-        <div class="container">
-          <h2 class="section-title">Why Choose Our Platform?</h2>
-          <div class="features-grid">
-            <div class="feature-card" *ngFor="let feature of features">
-              <div class="feature-icon">
-                <i [class]="feature.icon"></i>
+      <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Why Choose Our Platform?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="text-center p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl text-blue-600 mb-4">
+                <i class="pi pi-shield"></i>
               </div>
-              <h3>{{ feature.title }}</h3>
-              <p>{{ feature.description }}</p>
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">Multi-Tenant Architecture</h3>
+              <p class="text-gray-600 leading-relaxed">Built for scale with complete tenant isolation and secure data separation.</p>
+            </div>
+            <div class="text-center p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl text-blue-600 mb-4">
+                <i class="pi pi-chart-line"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">Advanced Analytics</h3>
+              <p class="text-gray-600 leading-relaxed">Real-time insights and comprehensive reporting to drive business decisions.</p>
+            </div>
+            <div class="text-center p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl text-blue-600 mb-4">
+                <i class="pi pi-users"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">User Management</h3>
+              <p class="text-gray-600 leading-relaxed">Complete user lifecycle management with role-based access control.</p>
+            </div>
+            <div class="text-center p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl text-blue-600 mb-4">
+                <i class="pi pi-credit-card"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">Billing & Payments</h3>
+              <p class="text-gray-600 leading-relaxed">Seamless Stripe integration for subscription management and payments.</p>
+            </div>
+            <div class="text-center p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl text-blue-600 mb-4">
+                <i class="pi pi-envelope"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">Email System</h3>
+              <p class="text-gray-600 leading-relaxed">Transactional emails with beautiful templates and automation.</p>
+            </div>
+            <div class="text-center p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl text-blue-600 mb-4">
+                <i class="pi pi-cloud-upload"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">File Management</h3>
+              <p class="text-gray-600 leading-relaxed">Secure file upload and storage with AWS S3 integration.</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Pricing Section -->
-      <section class="pricing-section">
-        <div class="container">
-          <h2 class="section-title">Simple, Transparent Pricing</h2>
-          <div class="pricing-grid">
-            <div class="pricing-card" *ngFor="let plan of pricingPlans">
-              <div class="plan-header">
-                <h3>{{ plan.name }}</h3>
-                <div class="plan-price">
-                  <span class="currency">$</span>
-                  <span class="amount">{{ plan.price }}</span>
-                  <span class="period">/month</span>
-                </div>
+      <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Simple, Transparent Pricing</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Starter</h3>
+                <div class="text-4xl font-bold text-blue-600 mb-2">$0</div>
+                <div class="text-gray-600">/month</div>
               </div>
-              <ul class="plan-features">
-                <li *ngFor="let feature of plan.features">
-                  <i class="pi pi-check"></i>
-                  {{ feature }}
+              <ul class="text-left mb-8 space-y-3">
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Up to 5 users</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Basic features</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Community support</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">1GB storage</span>
                 </li>
               </ul>
               <p-button 
-                [label]="plan.buttonText" 
-                [class]="plan.buttonClass"
-                (click)="selectPlan(plan)">
+                label="Start Free" 
+                class="p-button-outlined w-full"
+                (click)="selectPlan(pricingPlans[0])">
+              </p-button>
+            </div>
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-blue-500 relative">
+              <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+              </div>
+              <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Professional</h3>
+                <div class="text-4xl font-bold text-blue-600 mb-2">$29</div>
+                <div class="text-gray-600">/month</div>
+              </div>
+              <ul class="text-left mb-8 space-y-3">
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Up to 50 users</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Advanced features</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Priority support</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">10GB storage</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Custom branding</span>
+                </li>
+              </ul>
+              <p-button 
+                label="Start Trial" 
+                class="p-button-primary w-full"
+                (click)="selectPlan(pricingPlans[1])">
+              </p-button>
+            </div>
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Enterprise</h3>
+                <div class="text-4xl font-bold text-blue-600 mb-2">$99</div>
+                <div class="text-gray-600">/month</div>
+              </div>
+              <ul class="text-left mb-8 space-y-3">
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Unlimited users</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">All features</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">24/7 support</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Unlimited storage</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Custom integrations</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="pi pi-check text-green-500 mr-3"></i>
+                  <span class="text-gray-700">Dedicated account manager</span>
+                </li>
+              </ul>
+              <p-button 
+                label="Contact Sales" 
+                class="p-button-success w-full"
+                (click)="selectPlan(pricingPlans[2])">
               </p-button>
             </div>
           </div>
@@ -83,10 +207,10 @@ import { Router } from '@angular/router';
       </section>
 
       <!-- CTA Section -->
-      <section class="cta-section">
-        <div class="container">
-          <h2>Ready to Transform Your Business?</h2>
-          <p>Join thousands of businesses already using our platform</p>
+      <section class="py-24 bg-gradient-to-r from-blue-600 to-blue-800 text-white text-center">
+        <div class="max-w-4xl mx-auto px-8">
+          <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
+          <p class="text-xl mb-8 opacity-90">Join thousands of businesses already using our platform</p>
           <p-button 
             label="Start Your Free Trial" 
             icon="pi pi-arrow-right" 
@@ -97,305 +221,42 @@ import { Router } from '@angular/router';
       </section>
 
       <!-- Footer -->
-      <footer class="landing-footer">
-        <div class="container">
-          <div class="footer-content">
-            <div class="footer-section">
-              <h4>Product</h4>
-              <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#demo">Demo</a></li>
+      <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Product</h4>
+              <ul class="space-y-2">
+                <li><a href="#features" class="text-gray-300 hover:text-white transition-colors">Features</a></li>
+                <li><a href="#pricing" class="text-gray-300 hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#demo" class="text-gray-300 hover:text-white transition-colors">Demo</a></li>
               </ul>
             </div>
-            <div class="footer-section">
-              <h4>Company</h4>
-              <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#careers">Careers</a></li>
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Company</h4>
+              <ul class="space-y-2">
+                <li><a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+                <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                <li><a href="#careers" class="text-gray-300 hover:text-white transition-colors">Careers</a></li>
               </ul>
             </div>
-            <div class="footer-section">
-              <h4>Support</h4>
-              <ul>
-                <li><a href="#help">Help Center</a></li>
-                <li><a href="#docs">Documentation</a></li>
-                <li><a href="#status">Status</a></li>
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Support</h4>
+              <ul class="space-y-2">
+                <li><a href="#help" class="text-gray-300 hover:text-white transition-colors">Help Center</a></li>
+                <li><a href="#docs" class="text-gray-300 hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="#status" class="text-gray-300 hover:text-white transition-colors">Status</a></li>
               </ul>
             </div>
           </div>
-          <div class="footer-bottom">
-            <p>&copy; 2024 SaaS Platform. All rights reserved.</p>
+          <div class="text-center pt-8 border-t border-gray-800">
+            <p class="text-gray-400">&copy; 2024 SaaS Platform. All rights reserved.</p>
           </div>
         </div>
       </footer>
     </div>
   `,
-  styles: [`
-    .landing-page {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    .hero-section {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      color: white;
-    }
-
-    .hero-content {
-      flex: 1;
-      max-width: 600px;
-    }
-
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      line-height: 1.6;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-image {
-      flex: 1;
-      text-align: center;
-    }
-
-    .hero-image img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .features-section {
-      padding: 6rem 2rem;
-      background: white;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 3rem;
-      color: #1f2937;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      padding: 2rem;
-      text-align: center;
-      background: #f8fafc;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      color: #3b82f6;
-      margin-bottom: 1rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #1f2937;
-    }
-
-    .feature-card p {
-      color: #6b7280;
-      line-height: 1.6;
-    }
-
-    .pricing-section {
-      padding: 6rem 2rem;
-      background: #f8fafc;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .pricing-card {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .plan-header h3 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #1f2937;
-    }
-
-    .plan-price {
-      margin-bottom: 2rem;
-    }
-
-    .currency {
-      font-size: 1.5rem;
-      color: #6b7280;
-    }
-
-    .amount {
-      font-size: 3rem;
-      font-weight: 700;
-      color: #3b82f6;
-    }
-
-    .period {
-      font-size: 1rem;
-      color: #6b7280;
-    }
-
-    .plan-features {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 2rem;
-    }
-
-    .plan-features li {
-      padding: 0.5rem 0;
-      color: #6b7280;
-    }
-
-    .plan-features i {
-      color: #10b981;
-      margin-right: 0.5rem;
-    }
-
-    .cta-section {
-      padding: 6rem 2rem;
-      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-      text-align: center;
-      color: white;
-    }
-
-    .cta-section h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .cta-section p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .landing-footer {
-      background: #1f2937;
-      color: white;
-      padding: 3rem 2rem 1rem;
-    }
-
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .footer-section h4 {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .footer-section ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-section li {
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-section a {
-      color: #d1d5db;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-section a:hover {
-      color: white;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid #374151;
-      color: #9ca3af;
-    }
-
-    @media (max-width: 768px) {
-      .hero-section {
-        flex-direction: column;
-        text-align: center;
-        padding: 4rem 1rem;
-      }
-
-      .hero-title {
-        font-size: 2.5rem;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .section-title {
-        font-size: 2rem;
-      }
-
-      .features-grid,
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  `]
+  styles: []
 })
 export class LandingComponent {
   features = [

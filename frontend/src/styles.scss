@@ -3,260 +3,83 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Basic styles */
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: #f9fafb;
-  color: #111827;
-}
-
-/* Custom button styles */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  border: 1px solid transparent;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #2563eb;
-}
-
-.btn-secondary {
-  background-color: white;
-  color: #374151;
-  border-color: #d1d5db;
-}
-
-.btn-secondary:hover {
-  background-color: #f9fafb;
-}
-
-.btn-success {
-  background-color: #10b981;
-  color: white;
-}
-
-.btn-success:hover {
-  background-color: #059669;
-}
-
-.btn-danger {
-  background-color: #ef4444;
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: #dc2626;
-}
-
-.btn-lg {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-}
-
-/* Card styles */
-.card {
-  background-color: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
-}
-
-.card-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-.card-footer {
-  padding: 1.5rem;
-  border-top: 1px solid #e5e7eb;
-  background-color: #f9fafb;
-  border-radius: 0 0 0.75rem 0.75rem;
-}
-
-/* Form styles */
-.form-input {
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* Badge styles */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.badge-primary {
-  background-color: #dbeafe;
-  color: #1e40af;
-}
-
-.badge-success {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
-.badge-warning {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.badge-danger {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.badge-secondary {
-  background-color: #f3f4f6;
-  color: #374151;
-}
-
-/* PrimeNG customizations */
+/* PrimeNG customizations using Tailwind */
 .p-component {
-  font-family: 'Inter', system-ui, sans-serif;
+  @apply font-sans;
 }
 
 .p-button {
-  @extend .btn;
-  @extend .btn-primary;
+  @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.p-button.p-button-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
 }
 
 .p-button.p-button-secondary {
-  @extend .btn-secondary;
+  @apply bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-blue-500;
 }
 
 .p-button.p-button-success {
-  @extend .btn-success;
+  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
 }
 
 .p-button.p-button-danger {
-  @extend .btn-danger;
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+.p-button.p-button-warning {
+  @apply bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500;
+}
+
+.p-button.p-button-outlined {
+  @apply bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500;
 }
 
 .p-button.p-button-lg {
-  @extend .btn-lg;
+  @apply px-6 py-3 text-base;
 }
 
 .p-inputtext {
-  @extend .form-input;
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
 }
 
 .p-card {
-  @extend .card;
+  @apply bg-white rounded-xl shadow-lg border border-gray-200;
 }
 
 .p-card .p-card-header {
-  @extend .card-header;
+  @apply px-6 py-4 border-b border-gray-200;
 }
 
 .p-card .p-card-body {
-  @extend .card-body;
+  @apply px-6 py-4;
 }
 
 .p-card .p-card-footer {
-  @extend .card-footer;
+  @apply px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-xl;
 }
 
 .p-tag {
-  @extend .badge;
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
 }
 
 .p-tag.p-tag-primary {
-  @extend .badge-primary;
+  @apply bg-blue-100 text-blue-800;
 }
 
 .p-tag.p-tag-success {
-  @extend .badge-success;
+  @apply bg-green-100 text-green-800;
 }
 
 .p-tag.p-tag-warning {
-  @extend .badge-warning;
+  @apply bg-yellow-100 text-yellow-800;
 }
 
 .p-tag.p-tag-danger {
-  @extend .badge-danger;
+  @apply bg-red-100 text-red-800;
 }
 
 .p-tag.p-tag-secondary {
-  @extend .badge-secondary;
-}
-
-/* Animations */
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.slide-up {
-  animation: slideUp 0.3s ease-out;
-}
-
-.slide-down {
-  animation: slideDown 0.3s ease-out;
-}
-
-.scale-in {
-  animation: scaleIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* Responsive design */
-@media (max-width: 640px) {
-  .card {
-    border-radius: 0.5rem;
-  }
-  
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
+  @apply bg-gray-100 text-gray-800;
 } 

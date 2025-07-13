@@ -10,8 +10,8 @@ import { Component } from '@angular/core';
             Create your account
           </h2>
         </div>
-        <div class="card">
-          <div class="card-body">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="px-6 py-4">
             <p class="text-center text-gray-600">
               Register component will be implemented here.
             </p>
