@@ -1,0 +1,354 @@
+# SaaS Multi-Tenant Platform
+
+A comprehensive, production-ready SaaS platform built with NestJS backend, Angular frontend, and admin dashboard for managing multi-tenant applications.
+
+## 🚀 Features
+
+### Backend (NestJS)
+- **Multi-tenant Architecture**: Complete tenant isolation with subdomain-based routing
+- **Authentication & Authorization**: JWT-based auth with role-based access control
+- **User Management**: Complete user lifecycle management
+- **Billing & Payments**: Stripe integration for subscription management
+- **Email System**: Transactional emails with templates
+- **File Upload**: AWS S3 integration for file storage
+- **Rate Limiting**: API protection with configurable limits
+- **Queue Management**: Background job processing with Bull/Redis
+- **API Documentation**: Swagger/OpenAPI documentation
+- **Database**: PostgreSQL with TypeORM
+- **Caching**: Redis for session and data caching
+
+### Frontend (Angular)
+- **Modern UI**: Tailwind CSS with PrimeNG components
+- **Responsive Design**: Mobile-first approach
+- **Authentication**: Login, registration, password reset
+- **Dashboard**: Analytics and metrics visualization
+- **User Management**: Profile, settings, preferences
+- **Billing Portal**: Subscription management and payment history
+- **Real-time Updates**: WebSocket integration
+- **PWA Ready**: Service worker for offline capabilities
+
+### Admin Dashboard
+- **Tenant Management**: Create, edit, suspend tenants
+- **User Administration**: Manage users across all tenants
+- **Billing Overview**: Revenue tracking and subscription management
+- **Analytics**: Platform-wide metrics and insights
+- **System Monitoring**: Health checks and performance metrics
+- **Content Management**: Global content and settings
+
+## 🏗️ Architecture
+
+```
+SaaS-StarterKit/
+├── backend/                 # NestJS API
+│   ├── src/
+│   │   ├── modules/        # Feature modules
+│   │   ├── common/         # Shared utilities
+│   │   ├── config/         # Configuration files
+│   │   └── database/       # Migrations and seeds
+├── frontend/               # Angular application
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── features/   # Feature modules
+│   │   │   ├── shared/     # Shared components
+│   │   │   └── core/       # Core services
+│   │   └── assets/         # Static assets
+├── admin/                  # Admin dashboard
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── features/   # Admin features
+│   │   │   └── shared/     # Shared components
+├── shared/                 # Shared types and utilities
+└── docker-compose.yml      # Development environment
+```
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Framework**: NestJS 10.x
+- **Language**: TypeScript
+- **Database**: PostgreSQL 15
+- **ORM**: TypeORM
+- **Cache**: Redis
+- **Queue**: Bull
+- **Payment**: Stripe
+- **Email**: Nodemailer
+- **File Storage**: AWS S3
+- **Authentication**: JWT + Passport
+- **Documentation**: Swagger/OpenAPI
+
+### Frontend
+- **Framework**: Angular 17
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: PrimeNG
+- **Charts**: Chart.js
+- **State Management**: NgRx (optional)
+- **HTTP Client**: Angular HttpClient
+- **Routing**: Angular Router
+
+### Admin Dashboard
+- **Framework**: Angular 17
+- **Data Grid**: AG Grid
+- **Charts**: Chart.js
+- **UI**: PrimeNG + Tailwind CSS
+
+### Infrastructure
+- **Containerization**: Docker
+- **Orchestration**: Docker Compose
+- **Database**: PostgreSQL
+- **Cache**: Redis
+- **Email Testing**: MailHog
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- npm 9+
+- Docker & Docker Compose
+- PostgreSQL (for production)
+- Redis (for production)
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd SaaS-StarterKit
+```
+
+### 2. Install Dependencies
+```bash
+# Install root dependencies
+npm install
+
+# Install all workspace dependencies
+npm run install:all
+```
+
+### 3. Environment Setup
+```bash
+# Copy environment files
+cp backend/env.example backend/.env
+cp frontend/src/environments/environment.example.ts frontend/src/environments/environment.ts
+cp admin/src/environments/environment.example.ts admin/src/environments/environment.ts
+```
+
+### 4. Start Development Environment
+```bash
+# Start Docker services (PostgreSQL, Redis, MailHog)
+docker-compose up -d
+
+# Start all applications
+npm run dev
+```
+
+### 5. Access Applications
+- **Frontend**: http://localhost:4200
+- **Admin Dashboard**: http://localhost:4201
+- **Backend API**: http://localhost:3000
+- **API Documentation**: http://localhost:3000/api/docs
+- **MailHog**: http://localhost:8025
+
+## ✅ Current Status
+
+**All services are running successfully:**
+
+- ✅ **Backend (NestJS)**: Running on http://localhost:3000
+  - API endpoints available at `/api/v1/*`
+  - Database connected with clean schema
+  - All modules loaded successfully
+
+- ✅ **Admin Dashboard**: Running on http://localhost:4201
+  - Fully functional Angular app
+  - PrimeNG components working
+  - Ready for development
+
+- ✅ **Frontend**: Running on http://localhost:4200
+  - Angular dev server active
+  - Basic structure in place
+  - Ready for feature development
+
+- ✅ **Database**: PostgreSQL running with clean schema
+  - All tables created successfully
+  - TypeORM synchronization working
+  - Ready for data
+
+## 🔧 Configuration
+
+### Environment Variables
+
+#### Backend (.env)
+```env
+# Application
+NODE_ENV=development
+PORT=3000
+FRONTEND_URL=http://localhost:4200
+ADMIN_URL=http://localhost:4201
+
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=saas_user
+DB_PASSWORD=saas_password
+DB_NAME=saas_platform
+
+# Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+# JWT
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRES_IN=7d
+
+# Stripe
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Email
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_FROM=noreply@saasplatform.com
+
+# AWS S3
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=your-s3-bucket-name
+```
+
+### Frontend Configuration
+Update `frontend/src/environments/environment.ts`:
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api/v1',
+  stripePublishableKey: 'pk_test_...',
+};
+```
+
+## 📊 Database Setup
+
+The database is automatically set up when you start the application. TypeORM will:
+
+1. **Create all tables** based on entity definitions
+2. **Set up relationships** between entities
+3. **Create indexes** for optimal performance
+4. **Initialize enums** for status and role fields
+
+### Database Schema
+- **Users**: User management with roles and tenant association
+- **Tenants**: Multi-tenant organization management
+- **Subscriptions**: Billing and subscription tracking
+- **Base Entity**: Common fields (id, timestamps, soft delete)
+
+## 🔐 Authentication
+
+### User Roles
+- **SUPER_ADMIN**: Platform owner with full access
+- **ADMIN**: Tenant administrator
+- **USER**: Regular tenant user
+- **VIEWER**: Read-only access
+
+### JWT Tokens
+- Access tokens expire in 7 days
+- Refresh tokens for seamless authentication
+- Secure token storage in HTTP-only cookies
+
+## 💳 Billing & Payments
+
+### Stripe Integration
+- Subscription management
+- Payment processing
+- Webhook handling
+- Invoice generation
+- Tax calculation
+
+### Plans
+- **FREE**: Basic features, limited usage
+- **BASIC**: Core features, moderate usage
+- **PROFESSIONAL**: Advanced features, high usage
+- **ENTERPRISE**: Full features, unlimited usage
+
+## 🚀 Development
+
+### Available Scripts
+
+```bash
+# Development
+npm run dev                    # Start all services
+npm run dev:backend           # Start backend only
+npm run dev:frontend          # Start frontend only
+npm run dev:admin             # Start admin only
+
+# Docker
+npm run docker:up             # Start Docker services
+npm run docker:down           # Stop Docker services
+npm run docker:logs           # View Docker logs
+
+# Database
+npm run db:reset              # Reset database
+npm run db:migrate            # Run migrations
+npm run db:seed               # Seed data
+
+# Build
+npm run build                 # Build all applications
+npm run build:backend         # Build backend
+npm run build:frontend        # Build frontend
+npm run build:admin           # Build admin
+```
+
+### API Endpoints
+
+The backend provides the following API endpoints:
+
+- `GET /api/v1/users` - User management
+- `GET /api/v1/tenants` - Tenant management
+- `GET /api/v1/billing` - Billing operations
+- `GET /api/v1/auth` - Authentication
+- `GET /api/v1/admin` - Admin operations
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Port conflicts**: Ensure ports 3000, 4200, 4201 are available
+2. **Database connection**: Check if PostgreSQL is running in Docker
+3. **Node modules**: Run `npm install` in each directory if needed
+4. **Docker issues**: Restart Docker and run `docker-compose down && docker-compose up -d`
+
+### Reset Everything
+
+```bash
+# Stop all services
+npm run docker:down
+pkill -f "nest start"
+pkill -f "ng serve"
+
+# Reset database
+docker volume rm saas-starterkit_postgres_data
+
+# Restart
+docker-compose up -d
+npm run dev
+```
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the troubleshooting section
+- Review the API documentation at http://localhost:3000/api/docs 
