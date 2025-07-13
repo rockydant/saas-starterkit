@@ -1,7 +1,7 @@
 import { Entity, Column, OneToMany, Index } from 'typeorm';
-import { BaseEntity } from '@/common/entities/base.entity';
-import { User } from '@/modules/users/entities/user.entity';
-import { Subscription } from '@/modules/billing/entities/subscription.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
+import { User } from '../../users/entities/user.entity';
+import { Subscription } from '../../billing/entities/subscription.entity';
 
 export enum TenantStatus {
   ACTIVE = 'active',

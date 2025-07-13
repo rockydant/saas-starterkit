@@ -5,9 +5,10 @@ import { TenantService } from './tenant.service';
 import { Tenant } from './entities/tenant.entity';
 import { User } from '@/modules/users/entities/user.entity';
 import { Subscription } from '@/modules/billing/entities/subscription.entity';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Tenant, User, Subscription])],
+  imports: [TypeOrmModule.forFeature([Tenant, User, Subscription]), AuthModule],
   controllers: [TenantsController],
   providers: [TenantService],
   exports: [TenantService],

@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, Index, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
-import { BaseEntity } from '@/common/entities/base.entity';
-import { Tenant } from '@/modules/tenants/entities/tenant.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 export enum UserRole {
   SUPER_ADMIN = 'super_admin',
