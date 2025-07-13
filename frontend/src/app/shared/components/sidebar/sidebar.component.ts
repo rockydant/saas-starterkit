@@ -120,7 +120,7 @@ export class SidebarComponent {
       error: (error: any) => {
         console.error('Logout error:', error);
         // Even if backend call fails, clear local storage
-        this.authService.logout();
+        this.authService.clearAuthData();
         this.router.navigate(['/login']);
       }
     });

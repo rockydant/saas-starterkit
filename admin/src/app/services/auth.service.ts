@@ -2,89 +2,52 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
 
-export interface User {
+export interface AdminUser {
   id: string;
   email: string;
   firstName: string;
   lastName: string;
   role: string;
-  tenant?: any;
-}
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface RegisterRequest {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  tenantName: string;
 }
 
 export interface AuthResponse {
   access_token: string;
-  user: User;
+  user: AdminUser;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser: Observable<User | null>;
-  private apiUrl = environment.apiUrl;
+export class AdminAuthService {
+  private currentUserSubject: BehaviorSubject<AdminUser | null>;
+  public currentUser: Observable<AdminUser | null>;
+  private apiUrl = 'http://localhost:3000/api/v1';
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User | null>(
+    this.currentUserSubject = new BehaviorSubject<AdminUser | null>(
       this.getUserFromStorage()
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User | null {
+  public get currentUserValue(): AdminUser | null {
     return this.currentUserSubject.value;
   }
 
   public get token(): string | null {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('admin_access_token');
   }
 
-  login(credentials: LoginRequest): Observable<AuthResponse> {
+  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, credentials)
       .pipe(map(response => {
         // Store user details and token in local storage
-        localStorage.setItem('access_token', response.access_token);
-        localStorage.setItem('current_user', JSON.stringify(response.user));
+        localStorage.setItem('admin_access_token', response.access_token);
+        localStorage.setItem('admin_current_user', JSON.stringify(response.user));
         this.currentUserSubject.next(response.user);
         return response;
       }));
-  }
-
-  register(userData: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/register`, userData)
-      .pipe(map(response => {
-        // Store user details and token in local storage
-        localStorage.setItem('access_token', response.access_token);
-        localStorage.setItem('current_user', JSON.stringify(response.user));
-        this.currentUserSubject.next(response.user);
-        return response;
-      }));
-  }
-
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/forgot-password`, { email });
-  }
-
-  resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/reset-password`, {
-      token,
-      newPassword
-    });
   }
 
   logout(): Observable<any> {
@@ -107,8 +70,8 @@ export class AuthService {
 
   // Separate method to clear auth data without calling backend
   clearAuthData(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('current_user');
+    localStorage.removeItem('admin_access_token');
+    localStorage.removeItem('admin_current_user');
     this.currentUserSubject.next(null);
   }
 
@@ -116,16 +79,12 @@ export class AuthService {
     return !!this.token;
   }
 
-  getUserProfile(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/auth/profile`);
+  getUserProfile(): Observable<AdminUser> {
+    return this.http.get<AdminUser>(`${this.apiUrl}/auth/profile`);
   }
 
-  refreshToken(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/refresh`, {});
-  }
-
-  private getUserFromStorage(): User | null {
-    const userStr = localStorage.getItem('current_user');
+  private getUserFromStorage(): AdminUser | null {
+    const userStr = localStorage.getItem('admin_current_user');
     if (userStr) {
       try {
         return JSON.parse(userStr);

@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           // Unauthorized - clear auth data and redirect to login
-          this.authService.logout();
+          this.authService.clearAuthData();
           this.router.navigate(['/auth/login']);
         }
         return throwError(() => error);

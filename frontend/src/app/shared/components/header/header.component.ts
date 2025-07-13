@@ -151,7 +151,7 @@ export class HeaderComponent {
       error: (error: any) => {
         console.error('Logout error:', error);
         // Even if backend call fails, clear local storage
-        this.authService.logout();
+        this.authService.clearAuthData();
         this.router.navigate(['/']);
       }
     });

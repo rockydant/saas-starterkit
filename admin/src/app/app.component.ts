@@ -1,13 +1,15 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { StatsCardComponent } from './components/stats-card.component';
 import { DashboardChartComponent } from './components/dashboard-chart.component';
+import { AdminAuthService, AdminUser } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, StatsCardComponent, DashboardChartComponent],
+  imports: [CommonModule, HttpClientModule, StatsCardComponent, DashboardChartComponent],
   template: `
     <div class="flex h-screen bg-gray-100">
       <!-- Sidebar -->
@@ -72,7 +74,7 @@ import { DashboardChartComponent } from './components/dashboard-chart.component'
           <div class="flex items-center justify-between px-6 py-4">
             <div>
               <h2 class="text-2xl font-bold text-gray-900">Dashboard</h2>
-              <p class="text-sm text-gray-600">Welcome back, Admin</p>
+              <p class="text-sm text-gray-600">Welcome back, {{ currentUser?.firstName || 'Admin' }}</p>
             </div>
             
             <div class="flex items-center space-x-4">
@@ -90,7 +92,7 @@ import { DashboardChartComponent } from './components/dashboard-chart.component'
                   class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-2"
                 >
                   <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User avatar">
-                  <span class="text-sm font-medium">Admin User</span>
+                  <span class="text-sm font-medium">{{ currentUser?.firstName || 'Admin' }} {{ currentUser?.lastName || 'User' }}</span>
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
@@ -102,8 +104,8 @@ import { DashboardChartComponent } from './components/dashboard-chart.component'
                   class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
                 >
                   <div class="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-                    <div class="font-medium">admin&#64;saasplatform.com</div>
-                    <div class="text-gray-500">Super Admin</div>
+                    <div class="font-medium">{{ currentUser?.email || 'admin&#64;saasplatform.com' }}</div>
+                    <div class="text-gray-500">{{ currentUser?.role || 'Super Admin' }}</div>
                   </div>
                   
                   <a 
@@ -231,8 +233,16 @@ import { DashboardChartComponent } from './components/dashboard-chart.component'
 export class AppComponent implements OnInit {
   title = 'saas-admin';
   showUserMenu = false;
+  currentUser: AdminUser | null = null;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AdminAuthService
+  ) {
+    this.authService.currentUser.subscribe((user: AdminUser | null) => {
+      this.currentUser = user;
+    });
+  }
 
   ngOnInit() {
     // Initialize any dashboard data
@@ -263,14 +273,17 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
-    // Clear any stored authentication data
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('current_user');
-    
-    // Close the menu
-    this.showUserMenu = false;
-    
-    // Navigate to login page or home page
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.showUserMenu = false;
+        this.router.navigate(['/login']);
+      },
+      error: (error: any) => {
+        console.error('Logout error:', error);
+        // Even if backend call fails, clear local storage
+        this.authService.clearAuthData();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 } 
