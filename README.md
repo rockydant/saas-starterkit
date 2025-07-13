@@ -1,13 +1,14 @@
 # SaaS Multi-Tenant Platform
 
-A comprehensive, production-ready SaaS platform built with NestJS backend, Angular frontend, and admin dashboard for managing multi-tenant applications.
+A comprehensive, production-ready SaaS platform built with NestJS backend, Angular frontend, and admin dashboard for managing multi-tenant applications with complete tenant, user, role, and subscription management.
 
 ## 🚀 Features
 
 ### Backend (NestJS)
 - **Multi-tenant Architecture**: Complete tenant isolation with subdomain-based routing
 - **Authentication & Authorization**: JWT-based auth with role-based access control
-- **User Management**: Complete user lifecycle management
+- **User Management**: Complete user lifecycle management with role assignment
+- **Tenant Management**: Full CRUD operations for tenant administration
 - **Billing & Payments**: Stripe integration for subscription management
 - **Email System**: Transactional emails with templates
 - **File Upload**: AWS S3 integration for file storage
@@ -30,8 +31,8 @@ A comprehensive, production-ready SaaS platform built with NestJS backend, Angul
 
 ### Admin Dashboard
 - **Modern UI**: Tailwind CSS with clean, professional interface
-- **Tenant Management**: Create, edit, suspend tenants
-- **User Administration**: Manage users across all tenants
+- **Tenant Management**: Create, edit, suspend tenants with full CRUD operations
+- **User Administration**: Manage users across all tenants with role assignment
 - **Billing Overview**: Revenue tracking and subscription management
 - **Analytics**: Platform-wide metrics and insights with stats cards and charts
 - **System Monitoring**: Health checks and performance metrics
@@ -44,6 +45,10 @@ SaaS-StarterKit/
 ├── backend/                 # NestJS API
 │   ├── src/
 │   │   ├── modules/        # Feature modules
+│   │   │   ├── tenants/    # Tenant management
+│   │   │   ├── users/      # User management
+│   │   │   ├── billing/    # Subscription & billing
+│   │   │   └── auth/       # Authentication
 │   │   ├── common/         # Shared utilities
 │   │   ├── config/         # Configuration files
 │   │   └── database/       # Migrations and seeds
@@ -160,6 +165,7 @@ npm run dev
   - Database connected with clean schema
   - All modules loaded successfully
   - Swagger documentation available
+  - Complete multi-tenant management APIs
 
 - ✅ **Frontend**: Running on http://localhost:4200
   - Modern landing page with Tailwind CSS
@@ -200,6 +206,39 @@ npm run dev
 - **PrimeNG Integration**: Components styled with Tailwind utilities
 - **Consistent Design**: Unified design language across frontend and admin
 - **Modern Aesthetics**: Clean, professional appearance
+
+## 🏢 Multi-Tenant Management
+
+### Tenant Management
+- **Create Tenants**: Set up new organizations with subdomains
+- **Update Tenant Details**: Modify name, description, settings
+- **Manage Tenant Status**: Activate, suspend, or cancel tenants
+- **Plan Management**: Upgrade/downgrade tenant plans
+- **View Tenant Users**: See all users for a specific tenant
+- **View Tenant Subscriptions**: Track billing for each tenant
+
+### User Management
+- **Create Users**: Add new users to tenants
+- **Update User Details**: Modify profile information
+- **Role Management**: Assign SUPER_ADMIN, ADMIN, USER, VIEWER roles
+- **Status Management**: Activate, suspend, or deactivate users
+- **Tenant-Specific Users**: View users for specific tenants
+- **User Statistics**: Track user growth and activity
+
+### Subscription & Billing Management
+- **Create Subscriptions**: Set up billing for tenants
+- **Manage Subscription Status**: Active, cancelled, past due, trial
+- **Billing Cycles**: Monthly and yearly subscriptions
+- **Revenue Tracking**: Monthly and yearly revenue analytics
+- **Plan Management**: Free, Basic, Professional, Enterprise plans
+- **Stripe Integration**: Webhook handling for payment processing
+
+### Role-Based Access Control
+**User Roles:**
+- **SUPER_ADMIN**: Full platform access, can manage all tenants
+- **ADMIN**: Tenant administrator, can manage users within their tenant
+- **USER**: Regular tenant user with standard permissions
+- **VIEWER**: Read-only access to tenant data
 
 ## 🔧 Configuration
 
@@ -330,13 +369,43 @@ npm run build:admin           # Build admin
 
 ### API Endpoints
 
-The backend provides the following API endpoints:
+The backend provides comprehensive API endpoints for multi-tenant management:
 
-- `GET /api/v1/users` - User management
-- `GET /api/v1/tenants` - Tenant management
-- `GET /api/v1/billing` - Billing operations
-- `GET /api/v1/auth` - Authentication
-- `GET /api/v1/admin` - Admin operations
+#### Tenant Management
+- `GET /api/v1/tenants` - Get all tenants
+- `GET /api/v1/tenants/:id` - Get tenant by ID
+- `POST /api/v1/tenants` - Create new tenant
+- `PUT /api/v1/tenants/:id` - Update tenant
+- `DELETE /api/v1/tenants/:id` - Delete tenant
+- `PUT /api/v1/tenants/:id/status` - Update tenant status
+- `PUT /api/v1/tenants/:id/plan` - Update tenant plan
+- `GET /api/v1/tenants/:id/users` - Get users for tenant
+- `GET /api/v1/tenants/:id/subscriptions` - Get subscriptions for tenant
+- `GET /api/v1/tenants/stats/overview` - Get tenant statistics
+
+#### User Management
+- `GET /api/v1/users` - Get all users
+- `GET /api/v1/users/:id` - Get user by ID
+- `POST /api/v1/users` - Create new user
+- `PUT /api/v1/users/:id` - Update user
+- `DELETE /api/v1/users/:id` - Delete user
+- `PUT /api/v1/users/:id/role` - Update user role
+- `PUT /api/v1/users/:id/status` - Update user status
+- `GET /api/v1/users/tenant/:tenantId` - Get users for tenant
+- `GET /api/v1/users/stats/overview` - Get user statistics
+
+#### Billing Management
+- `GET /api/v1/billing/subscriptions` - Get all subscriptions
+- `GET /api/v1/billing/subscriptions/:id` - Get subscription by ID
+- `POST /api/v1/billing/subscriptions` - Create new subscription
+- `PUT /api/v1/billing/subscriptions/:id` - Update subscription
+- `DELETE /api/v1/billing/subscriptions/:id` - Cancel subscription
+- `PUT /api/v1/billing/subscriptions/:id/status` - Update subscription status
+- `GET /api/v1/billing/tenants/:tenantId/subscriptions` - Get tenant subscriptions
+- `GET /api/v1/billing/stats/overview` - Get billing statistics
+- `GET /api/v1/billing/revenue/monthly` - Get monthly revenue
+- `GET /api/v1/billing/revenue/yearly` - Get yearly revenue
+- `GET /api/v1/billing/plans` - Get available plans
 
 ## 🐛 Troubleshooting
 
