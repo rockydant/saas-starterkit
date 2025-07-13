@@ -6,4 +6,13 @@ export class AuthController {
   getAuth() {
     return { message: 'Auth endpoint placeholder' };
   }
+
+  @Get('health')
+  getHealth() {
+    return { 
+      status: 'ok', 
+      timestamp: new Date().toISOString(),
+      service: 'auth'
+    };
+  }
 } 
