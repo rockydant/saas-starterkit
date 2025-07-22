@@ -169,14 +169,36 @@ cd admin
 npm start
 ```
 
-### 5. Access Applications
+### 5. Create Admin User (First Time Setup)
+```bash
+# Create default super admin user
+cd backend
+npm run create:admin
+```
+
+This will create a super admin user with:
+- **Email**: admin@admin.com
+- **Password**: admin123
+- **Role**: SUPER_ADMIN
+
+### 6. Access Applications
 - **Frontend**: http://localhost:4200 (Landing page)
 - **Admin Dashboard**: http://localhost:4201
 - **Backend API**: http://localhost:3000
 - **API Documentation**: http://localhost:3000/api/docs
 - **MailHog**: http://localhost:8025
 
-### 6. Development Tips
+### 7. Login Credentials
+
+#### Admin Dashboard
+- **Email**: admin@admin.com
+- **Password**: admin123
+
+#### Frontend (Register First)
+- Use the registration form at http://localhost:4200/auth/register
+- Or login with any previously registered user
+
+### 8. Development Tips
 
 #### Individual Service Management
 ```bash

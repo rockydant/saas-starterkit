@@ -268,7 +268,7 @@ show_completion() {
     echo "   - MailHog: http://localhost:8025"
     echo ""
     echo "4. Create a super admin user:"
-    echo "   cd backend && npm run create:super-admin"
+    echo "   cd backend && npm run create:admin"
     echo ""
     echo "🔧 Useful Commands:"
     echo "   npm run dev          # Start all development servers"

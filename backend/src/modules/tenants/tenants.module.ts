@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TenantsController } from './tenants.controller';
 import { TenantService } from './tenant.service';
 import { Tenant } from './entities/tenant.entity';
-import { User } from '@/modules/users/entities/user.entity';
-import { Subscription } from '@/modules/billing/entities/subscription.entity';
+import { User } from '../users/entities/user.entity';
+import { Subscription } from '../billing/entities/subscription.entity';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
